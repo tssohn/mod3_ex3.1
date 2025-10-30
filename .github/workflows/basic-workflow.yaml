@@ -1,19 +1,24 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
-; GitHub Actions Demo
-run-name: ${{github.actor}} is testing out GitHub Actions * 
-on: [push] 
+on: [push]
+
 jobs:
-  Explore-GitHub- name Actions: 
-    runs-on: ubuntu-latest 
+  explore-github-actions:
+    runs-on: ubuntu-latest
     steps:
-      - run: echo "3 The job was automatically triggered by a Sil github. event name )) ever
-      - run: echo "& This job is now running on a $El runner os ]) server hosted by GitHub!"
-      - run: echo "y The name of your branch is $ll github.ref 1)"
-      - name: Check out repository code 
-      uses: actions/checkout@v4
-      - run: echo " ‹ The $[ github. repository I) repository has been cloned to the runner."
-      - run: echo " The workflow is now ready to test your code on the runner."
-      - name: List files in the repository 
-      run:|
-        Is SEl github. workspace ))
-      - run: echo "(This job's status is $ll job status 1)."  
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }}"
+
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+
+      - run: echo "✅ This job's status is ${{ job.status }}."
