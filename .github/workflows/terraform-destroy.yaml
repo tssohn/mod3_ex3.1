@@ -1,18 +1,17 @@
-name: Terraform Deployment
+name: Terraform Destroy (Manual)
 
 on:
-  push:
-    branches: ["main"]
+  workflow_dispatch: {}
 
 env:
-  AWS_REGION: ap-southeast-1
+  AWS_REGION: us-east-1
 
 jobs:
-  cicd:
+  destroy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Configure AWS credentials
@@ -25,11 +24,9 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform Init
-        run: terraform init
+      # use local state so we can destroy the S3 bucket defined in TF
+      - name: Terraform Init (local state)
+        run: terraform init -backend=false -input=false
 
-      - name: Terraform Plan
-        run: terraform plan
-
-      - name: Terraform Apply
-        run: terraform apply --auto-approve
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve -input=false
